@@ -1,587 +1,862 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Bianca Docilio - Farmacêutica | Consultoria e Acompanhamento Medicamentoso</title>
-  <meta name="description" content="Consultoria farmacêutica personalizada com Bianca Docilio. Acompanhamento medicamentoso e otimização de tratamentos.">
-  <meta name="keywords" content="farmacêutica, consultoria, medicamentos, bianca docilio, acompanhamento farmacoterapêutico">
-
-  <!-- Tailwind -->
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-  <!-- Swiper -->
-  <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
-
-  <style>
-    :root{
-      --primary:#d946ef;      /* fúcsia */
-      --primary-900:#a21caf;
-      --pink:#f472b6;         /* rosa */
-      --pink-700:#ec4899;
-      --peach:#f59e0b;        /* pêssego/dourado */
-      --soft:#fdf2f8;         /* rosa bem claro */
-      --lilac:#ede9fe;        /* lilás clarinho */
-      --ink:#0f172a;
-    }
-    body{font-family:'Inter',sans-serif;color:#1f2937}
-    h1,h2,h3{font-family:'Poppins',sans-serif}
-
-    .hero-bg{
-      background:
-        radial-gradient(900px 420px at 20% 0%, rgba(245,158,11,.18) 0%, rgba(245,158,11,0) 60%),
-        linear-gradient(135deg,var(--primary) 0%, var(--pink) 55%, #fda4af 100%);
-    }
-    .btn-primary{
-      background:linear-gradient(90deg,var(--primary),var(--pink));
-      box-shadow:0 14px 28px -16px rgba(217,70,239,.6);
-      color:#fff;
-      transition:transform .15s ease, box-shadow .2s ease, opacity .2s ease;
-    }
-    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 24px 36px -18px rgba(217,70,239,.55);opacity:.96}
-    .btn-secondary{
-      background:linear-gradient(90deg,#fca5a5,var(--peach));
-      box-shadow:0 14px 28px -16px rgba(245,158,11,.45);
-      color:#fff;
-      transition:transform .15s ease, box-shadow .2s ease, opacity .2s ease;
-    }
-    .btn-secondary:hover{transform:translateY(-2px);box-shadow:0 24px 36px -18px rgba(245,158,11,.45);opacity:.96}
-    .card-shadow{box-shadow:0 10px 34px -18px rgba(0,0,0,.2)}
-    .section-soft{background:linear-gradient(180deg,#fff 0%,#fff 40%,var(--lilac) 100%)}
-
-    /* Header refinado */
-    .header{
-      position:sticky;top:0;z-index:50;
-      background:rgba(255,255,255,.68);
-      backdrop-filter:blur(10px);
-      transition:box-shadow .25s ease, transform .25s ease;
-      border-bottom:1px solid rgba(0,0,0,.04);
-    }
-    .header.scrolled{box-shadow:0 10px 28px -24px rgba(0,0,0,.35)}
-    .navbar a{padding:.625rem .5rem;line-height:1;position:relative}
-    .navbar a .dot{
-      content:"";position:absolute;left:50%;bottom:-4px;transform:translateX(-50%) scale(.4);
-      width:6px;height:6px;border-radius:9999px;background:linear-gradient(90deg,var(--primary),var(--pink));
-      opacity:0;transition:opacity .25s, transform .25s;
-    }
-    .navbar a.active .dot,.navbar a:hover .dot{opacity:1;transform:translateX(-50%) scale(1)}
-
-    /* Mobile drawer */
-    .drawer{position:fixed;inset:0;pointer-events:none;display:none}
-    .drawer.open{pointer-events:auto;display:block}
-    .drawer .overlay{position:absolute;inset:0;background:rgba(17,24,39,.45);opacity:0;transition:opacity .25s}
-    .drawer.open .overlay{opacity:1}
-    .drawer .panel{
-      position:absolute;right:0;top:0;height:100%;width:84%;max-width:360px;background:#fff;
-      transform:translateX(100%);transition:transform .3s ease;display:flex;flex-direction:column;
-      box-shadow:-10px 0 28px -20px rgba(0,0,0,.35)
-    }
-    .drawer.open .panel{transform:translateX(0)}
-    .no-scroll{overflow:hidden}
-
-    /* Foco acessível */
-    a:focus-visible,
-    button:focus-visible{
-      outline:2px solid var(--pink-700);
-      outline-offset:3px;
-      border-radius:.75rem; /* casa com rounded-lg dos botões */
-    }
-
-    .icon-pink{color:var(--pink-700)}
-    .icon-fuchsia{color:var(--primary)}
-
-    .hero-cta{position:relative;z-index:2}
-    .btn-primary,.btn-secondary{opacity:1}
-    .hero-cta{background:transparent!important;border:0!important;box-shadow:none!important;}
-
-    /* trava o opacity dos CTAs do hero */
-    .hero-cta a{opacity:1!important;}
-
-    /* mantém o wrapper “limpo” (sem véu) */
-    .hero-cta{background:transparent!important;border:0!important;box-shadow:none!important;}
-
-  </style>
-</head>
-<body class="bg-gray-50">
-
-  <!-- Header -->
-  <header id="header" class="header">
-    <div class="max-w-7xl mx-auto px-4">
-      <nav class="flex items-center justify-between py-3">
-        <a href="#hero" class="flex items-center space-x-2">
-          <span class="inline-flex items-center justify-center w-9 h-9 rounded-full"
-                style="background:linear-gradient(135deg,var(--primary),var(--pink));box-shadow:0 8px 18px -10px rgba(217,70,239,.55)">
-            <i class="fas fa-capsules text-white text-sm"></i>
-          </span>
-          <span class="text-xl md:text-2xl font-bold"
-                style="background:linear-gradient(90deg,var(--primary),var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent">Bianca Docilio</span>
-        </a>
-
-        <!-- Desktop nav -->
-        <ul class="navbar hidden lg:flex items-center space-x-4 xl:space-x-6">
-          <li><a href="#hero" class="text-gray-700 hover:text-pink-600 transition active">Início<span class="dot"></span></a></li>
-          <li><a href="#especialidades" class="text-gray-700 hover:text-pink-600 transition">Especialidades<span class="dot"></span></a></li>
-          <li><a href="#sobre" class="text-gray-700 hover:text-pink-600 transition">Sobre<span class="dot"></span></a></li>
-          <li><a href="#beneficios" class="text-gray-700 hover:text-pink-600 transition">Benefícios<span class="dot"></span></a></li>
-          <li><a href="#servicos" class="text-gray-700 hover:text-pink-600 transition">Serviços<span class="dot"></span></a></li>
-          <li><a href="#depoimentos" class="text-gray-700 hover:text-pink-600 transition">Depoimentos<span class="dot"></span></a></li>
-          <li><a href="#atendimento" class="text-gray-700 hover:text-pink-600 transition">Atendimento<span class="dot"></span></a></li>
-          <li><a href="#blog" class="text-gray-700 hover:text-pink-600 transition">Blog<span class="dot"></span></a></li>
-          <li><a href="#contato" class="text-gray-700 hover:text-pink-600 transition">Contato<span class="dot"></span></a></li>
-        </ul>
-
-        <!-- CTA + Hamburger -->
-        <div class="flex items-center space-x-3">
-          <a href="#agendamento" class="hidden md:inline-flex btn-primary px-4 py-2 rounded-lg font-medium">Agendar</a>
-          <button id="burger" class="lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-md border border-gray-200 text-gray-700"
-                  aria-label="Abrir menu" aria-expanded="false" aria-controls="drawer-panel">
-            <i class="fas fa-bars"></i>
-          </button>
-        </div>
-      </nav>
-    </div>
-
-    <!-- Mobile Drawer -->
-    <div id="drawer" class="drawer" aria-hidden="true">
-      <div class="overlay" tabindex="-1"></div>
-      <aside id="drawer-panel" class="panel" role="dialog" aria-modal="true" aria-label="Menu">
-        <div class="flex items-center justify-between p-4 border-b border-gray-100">
-          <div class="flex items-center space-x-2">
-            <span class="inline-flex items-center justify-center w-8 h-8 rounded-full"
-                  style="background:linear-gradient(135deg,var(--primary),var(--pink))">
-              <i class="fas fa-capsules text-white text-xs"></i>
-            </span>
-            <span class="font-semibold text-gray-800">Menu</span>
-          </div>
-          <button id="closeDrawer" class="w-10 h-10 inline-flex items-center justify-center rounded-md border border-gray-200" aria-label="Fechar menu">
-            <i class="fas fa-xmark"></i>
-          </button>
-        </div>
-        <nav class="p-4 flex-1">
-          <ul class="space-y-1 text-base">
-            <li><a class="block px-3 py-3 rounded-lg hover:bg-gray-50" href="#hero">Início</a></li>
-            <li><a class="block px-3 py-3 rounded-lg hover:bg-gray-50" href="#especialidades">Especialidades</a></li>
-            <li><a class="block px-3 py-3 rounded-lg hover:bg-gray-50" href="#sobre">Sobre</a></li>
-            <li><a class="block px-3 py-3 rounded-lg hover:bg-gray-50" href="#beneficios">Benefícios</a></li>
-            <li><a class="block px-3 py-3 rounded-lg hover:bg-gray-50" href="#servicos">Serviços</a></li>
-            <li><a class="block px-3 py-3 rounded-lg hover:bg-gray-50" href="#depoimentos">Depoimentos</a></li>
-            <li><a class="block px-3 py-3 rounded-lg hover:bg-gray-50" href="#atendimento">Atendimento</a></li>
-            <li><a class="block px-3 py-3 rounded-lg hover:bg-gray-50" href="#agendamento">Agendamento</a></li>
-            <li><a class="block px-3 py-3 rounded-lg hover:bg-gray-50" href="#blog">Blog</a></li>
-            <li><a class="block px-3 py-3 rounded-lg hover:bg-gray-50" href="#contato">Contato</a></li>
-          </ul>
-        </nav>
-        <div class="p-4 border-t border-gray-100 space-y-3">
-          <a href="https://wa.me/5599999999999" class="btn-secondary w-full text-center py-3 rounded-lg font-semibold">Falar no WhatsApp</a>
-          <a href="#agendamento" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">Agendar Consultoria</a>
-        </div>
-      </aside>
-    </div>
-  </header>
-
-  <!-- Hero -->
-  <section id="hero" class="hero-bg text-white pt-20 pb-24">
-    <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center">
-      <div class="md:w-1/2 text-center md:text-left">
-        <span class="inline-block text-sm px-3 py-1 rounded-full" style="background:rgba(255,255,255,.18)">Cuidado farmacêutico personalizado</span>
-        <h1 class="text-4xl md:text-5xl font-bold mt-4">Bianca Docilio — acolhimento, ciência e resultado</h1>
-        <p class="text-lg md:text-xl mt-4 opacity-95">Consultoria medicamentosa sob medida para sua rotina e objetivos de saúde.</p>
-        <div class="hero-cta mt-8 flex flex-col sm:flex-row gap-3 isolation-auto">
-          <a href="#agendamento"
-            class="btn-primary inline-flex items-center justify-center px-6 py-3 rounded-lg font-semibold">
-            Agendar Consultoria
-          </a>
-          <a href="#servicos"
-            class="btn-secondary inline-flex items-center justify-center px-6 py-3 rounded-lg font-semibold">
-            Ver Serviços
-          </a>
-        </div>
-        <div class="mt-6 flex items-center justify-center md:justify-start space-x-3 text-sm opacity-95">
-          <span class="px-3 py-1 rounded-full" style="background:rgba(255,255,255,.22)">+10 anos de experiência</span>
-          <span class="px-3 py-1 rounded-full" style="background:rgba(255,255,255,.22)">Online e presencial</span>
-        </div>
-      </div>
-      <div class="md:w-1/2 mt-10 md:mt-0 flex justify-center">
-        <div class="relative">
-          <img src="assets/perfil.jpeg" alt="Bianca Docilio" class="rounded-3xl w-72 h-96 md:w-80 md:h-[28rem] object-cover shadow-2xl">
-          <span class="absolute -bottom-4 -right-4 w-24 h-24 rounded-2xl"
-                style="background:linear-gradient(135deg,var(--peach),#fecdd3);filter:blur(8px);opacity:.6"></span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Especialidades -->
-  <section id="especialidades" class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Áreas de Atuação</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <div class="card-shadow bg-white p-6 rounded-2xl text-center">
-          <i class="fas fa-stethoscope text-4xl icon-fuchsia mb-4"></i>
-          <h3 class="text-xl font-semibold mb-2">Farmácia Clínica</h3>
-          <p>Aplicação prática no cuidado direto ao paciente.</p>
-        </div>
-        <div class="card-shadow bg-white p-6 rounded-2xl text-center">
-          <i class="fas fa-heart text-4xl icon-pink mb-4"></i>
-          <h3 class="text-xl font-semibold mb-2">Atenção Farmacêutica</h3>
-          <p>Promoção da saúde e prevenção de doenças.</p>
-        </div>
-        <div class="card-shadow bg-white p-6 rounded-2xl text-center">
-          <i class="fas fa-pills text-4xl icon-fuchsia mb-4"></i>
-          <h3 class="text-xl font-semibold mb-2">Consultoria em Medicamentos</h3>
-          <p>Uso correto, ajustes e efeitos colaterais.</p>
-        </div>
-        <div class="card-shadow bg-white p-6 rounded-2xl text-center">
-          <i class="fas fa-chart-line text-4xl icon-pink mb-4"></i>
-          <h3 class="text-xl font-semibold mb-2">Gestão de Tratamentos</h3>
-          <p>Otimização e acompanhamento terapêutico.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Sobre -->
-  <section id="sobre" class="py-20 section-soft">
-    <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center">
-      <div class="md:w-1/2 mb-8 md:mb-0">
-        <img src="assets/perfil.jpeg" alt="Bianca Docilio" class="rounded-full w-64 h-64 object-cover mx-auto shadow-xl">
-      </div>
-      <div class="md:w-1/2">
-        <h2 class="text-3xl font-bold mb-4 text-gray-800">Conheça a Farmacêutica Bianca Docilio</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm mb-4">
-          <p><strong>CRF:</strong> [Número do CRF]</p>
-          <p><strong>Formação:</strong> [Universidade] — [Ano]</p>
-          <p><strong>Especializações:</strong> [Listar especializações]</p>
-          <p><strong>Experiência:</strong> [X] anos</p>
-        </div>
-        <p class="mb-3">Consultorias personalizadas para otimizar tratamentos e promover qualidade de vida.</p>
-        <p class="mb-4">Missão: ser sua aliada na jornada da saúde, unindo ciência, empatia e cuidado humano.</p>
-        <div id="experience-counter" class="inline-block text-base px-3 py-2 rounded-full"
-             style="background:linear-gradient(90deg, rgba(217,70,239,.12), rgba(244,114,182,.12)); color:#6b21a8">[X]+ anos de experiência</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Benefícios -->
-  <section id="beneficios" class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Vantagens do Acompanhamento Farmacêutico</h2>
-      <ul class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-        <li class="flex items-center"><i class="fas fa-shield-alt text-2xl icon-fuchsia mr-4"></i><span>Redução de interações medicamentosas</span></li>
-        <li class="flex items-center"><i class="fas fa-rocket text-2xl icon-pink mr-4"></i><span>Otimização dos tratamentos</span></li>
-        <li class="flex items-center"><i class="fas fa-user-md text-2xl icon-fuchsia mr-4"></i><span>Orientação personalizada e contínua</span></li>
-        <li class="flex items-center"><i class="fas fa-dollar-sign text-2xl icon-pink mr-4"></i><span>Economia com escolhas assertivas</span></li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- Serviços -->
-  <section id="servicos" class="py-20 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Como Posso Ajudar?</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <div class="card-shadow bg-white p-6 rounded-2xl text-center">
-          <i class="fas fa-user-friends text-4xl icon-fuchsia mb-4"></i>
-          <h3 class="text-xl font-semibold mb-2">Consulta Farmacêutica</h3>
-          <p>Presencial ou online, com plano de cuidado.</p>
-        </div>
-        <div class="card-shadow bg-white p-6 rounded-2xl text-center">
-          <i class="fas fa-clipboard-check text-4xl icon-pink mb-4"></i>
-          <h3 class="text-xl font-semibold mb-2">Revisão de Prescrições</h3>
-          <p>Segurança, interações e dose otimizada.</p>
-        </div>
-        <div class="card-shadow bg-white p-6 rounded-2xl text-center">
-          <i class="fas fa-heartbeat text-4xl icon-fuchsia mb-4"></i>
-          <h3 class="text-xl font-semibold mb-2">Acompanhamento de Crônicos</h3>
-          <p>Monitoramento e adesão.</p>
-        </div>
-        <div class="card-shadow bg-white p-6 rounded-2xl text-center">
-          <i class="fas fa-chalkboard-teacher text-4xl icon-pink mb-4"></i>
-          <h3 class="text-xl font-semibold mb-2">Palestras e Workshops</h3>
-          <p>Educação em saúde para grupos e empresas.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Depoimentos (Swiper) -->
-  <section id="depoimentos" class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">O que Dizem Nossos Pacientes</h2>
-      <div class="swiper mySwiper max-w-5xl mx-auto">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <div class="card-shadow bg-white p-8 rounded-2xl text-center">
-              <img src="https://via.placeholder.com/96x96?text=C" alt="Carla Mendes" class="rounded-full w-16 h-16 mx-auto mb-4">
-              <p class="mb-4">"A Bianca me ajudou a entender meus medicamentos. Sinto-me mais confiante!"</p>
-              <p class="font-semibold">Carla Mendes</p>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="card-shadow bg-white p-8 rounded-2xl text-center">
-              <img src="https://via.placeholder.com/96x96?text=R" alt="Rafael Lima" class="rounded-full w-16 h-16 mx-auto mb-4">
-              <p class="mb-4">"Consultoria online prática e esclarecedora. Recomendo!"</p>
-              <p class="font-semibold">Rafael Lima</p>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="card-shadow bg-white p-8 rounded-2xl text-center">
-              <img src="https://via.placeholder.com/96x96?text=S" alt="Sofia Alves" class="rounded-full w-16 h-16 mx-auto mb-4">
-              <p class="mb-4">"Profissionalismo e empatia. Minha saúde melhorou muito."</p>
-              <p class="font-semibold">Sofia Alves</p>
-            </div>
-          </div>
-        </div>
-        <div class="flex items-center justify-between mt-6">
-          <div class="swiper-pagination"></div>
-          <div class="space-x-2">
-            <button class="swiper-button-prev !static !translate-x-0 rounded-full px-3 py-2 bg-gray-100 hover:bg-gray-200"><i class="fas fa-chevron-left"></i></button>
-            <button class="swiper-button-next !static !translate-x-0 rounded-full px-3 py-2 bg-gray-100 hover:bg-gray-200"><i class="fas fa-chevron-right"></i></button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Formas de Atendimento -->
-  <section id="atendimento" class="py-20 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Formas de Atendimento</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-        <div class="card-shadow bg-white p-6 rounded-2xl">
-          <i class="fas fa-building text-4xl icon-fuchsia mb-4"></i>
-          <h3 class="text-xl font-semibold mb-2">Presencial</h3>
-          <p>Ambiente acolhedor e privacidade.</p>
-        </div>
-        <div class="card-shadow bg-white p-6 rounded-2xl">
-          <i class="fas fa-video text-4xl icon-pink mb-4"></i>
-          <h3 class="text-xl font-semibold mb-2">Online</h3>
-          <p>Videoconferência de qualquer lugar.</p>
-        </div>
-        <div class="card-shadow bg-white p-6 rounded-2xl">
-          <i class="fas fa-home text-4xl icon-fuchsia mb-4"></i>
-          <h3 class="text-xl font-semibold mb-2">Domiciliar</h3>
-          <p>Visita em casa sob agendamento.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Agendamento -->
-  <section id="agendamento" class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Agende Sua Consultoria</h2>
-    </div>
-    <div class="max-w-7xl mx-auto px-4">
-      <form id="appointment-form" class="max-w-md mx-auto bg-white p-8 rounded-2xl card-shadow" novalidate>
-        <div class="mb-4">
-          <label for="name" class="block text-gray-700 mb-2">Nome</label>
-          <input type="text" id="name" name="name" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-pink-300 focus:border-pink-400" required>
-        </div>
-        <div class="mb-4">
-          <label for="email" class="block text-gray-700 mb-2">Email</label>
-          <input type="email" id="email" name="email" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-pink-300 focus:border-pink-400" required>
-        </div>
-        <div class="mb-4">
-          <label for="phone" class="block text-gray-700 mb-2">Telefone</label>
-          <input type="tel" id="phone" name="phone" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-pink-300 focus:border-pink-400" required>
-        </div>
-        <div class="mb-4">
-          <label for="type" class="block text-gray-700 mb-2">Tipo de Consulta</label>
-          <select id="type" name="type" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-pink-300 focus:border-pink-400" required>
-            <option value="">Selecione</option>
-            <option value="presencial">Presencial</option>
-            <option value="online">Online</option>
-            <option value="domiciliar">Domiciliar</option>
-          </select>
-        </div>
-        <div class="mb-6">
-          <label for="message" class="block text-gray-700 mb-2">Mensagem (opcional)</label>
-          <textarea id="message" name="message" rows="4" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-pink-300 focus:border-pink-400" placeholder="Conte um pouco sobre sua necessidade"></textarea>
-        </div>
-        <button type="submit" class="btn-primary w-full py-3 rounded-lg font-semibold">Enviar</button>
-        <p id="form-feedback" class="text-center text-sm mt-3 hidden"></p>
-      </form>
-      <p class="text-center mt-4">Ou fale comigo pelo <a href="https://wa.me/5599999999999" class="text-pink-700 underline">WhatsApp</a></p>
-    </div>
-  </section>
-
-  <!-- Blog -->
-  <section id="blog" class="py-20 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Artigos Recentes</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <article class="card-shadow bg-white p-6 rounded-2xl">
-          <h3 class="text-xl font-semibold mb-2">Adesão ao Tratamento: por que é tão importante?</h3>
-          <p class="mb-4">Estratégias simples para não esquecer doses e melhorar resultados.</p>
-          <a href="#" class="text-pink-700 underline">Leia mais</a>
-        </article>
-        <article class="card-shadow bg-white p-6 rounded-2xl">
-          <h3 class="text-xl font-semibold mb-2">Interações Medicamentosas: o que observar</h3>
-          <p class="mb-4">Como evitar riscos ao combinar medicamentos e suplementos.</p>
-          <a href="#" class="text-pink-700 underline">Leia mais</a>
-        </article>
-        <article class="card-shadow bg-white p-6 rounded-2xl">
-          <h3 class="text-xl font-semibold mb-2">Farmácia Clínica no dia a dia</h3>
-          <p class="mb-4">O papel do farmacêutico clínico no cuidado centrado no paciente.</p>
-          <a href="#" class="text-pink-700 underline">Leia mais</a>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contato / Footer -->
-  <footer id="contato" class="bg-gray-900 text-white py-12">
-    <div class="max-w-7xl mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-8">Entre em Contato</h2>
-      <div class="flex justify-center space-x-8 mb-8">
-        <a href="https://wa.me/5599999999999" class="text-white hover:text-pink-300" aria-label="WhatsApp"><i class="fab fa-whatsapp text-2xl"></i></a>
-        <a href="mailto:bianca@exemplo.com" class="text-white hover:text-pink-300" aria-label="Email"><i class="fas fa-envelope text-2xl"></i></a>
-        <a href="tel:+5599999999999" class="text-white hover:text-pink-300" aria-label="Telefone"><i class="fas fa-phone text-2xl"></i></a>
-        <a href="https://www.instagram.com/" target="_blank" rel="noopener" class="text-white hover:text-pink-300" aria-label="Instagram"><i class="fab fa-instagram text-2xl"></i></a>
-      </div>
-      <div class="text-center space-y-1">
-        <p>Endereço: Rua Exemplo, 123 — Sua Cidade, UF</p>
-        <p class="text-sm text-white/80">© <span id="year"></span> Bianca Docilio. Todos os direitos reservados.</p>
-      </div>
-    </div>
-  </footer>
-
-  <!-- GSAP -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <!-- Swiper -->
-  <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
-
-  <script>
-    const header=document.getElementById('header');
-    const burger=document.getElementById('burger');
-    const drawer=document.getElementById('drawer');
-    const overlay=drawer.querySelector('.overlay');
-    const panel=document.getElementById('drawer-panel');
-    const closeDrawerBtn=document.getElementById('closeDrawer');
-
-    function openDrawer(){
-      drawer.classList.add('open');
-      document.body.classList.add('no-scroll');
-      burger.setAttribute('aria-expanded','true');
-      drawer.setAttribute('aria-hidden','false');
-      panel.focus();
-    }
-    function closeDrawer(){
-      drawer.classList.remove('open');
-      document.body.classList.remove('no-scroll');
-      burger.setAttribute('aria-expanded','false');
-      drawer.setAttribute('aria-hidden','true');
-      burger.focus();
-    }
-    burger.addEventListener('click',openDrawer);
-    overlay.addEventListener('click',closeDrawer);
-    closeDrawerBtn.addEventListener('click',closeDrawer);
-    document.addEventListener('keydown',(e)=>{if(e.key==='Escape'&&drawer.classList.contains('open')) closeDrawer()});
-
-    // Header comportado no scroll
-    let lastY=0;
-    window.addEventListener('scroll',()=>{
-      const y=window.scrollY;
-      header.classList.toggle('scrolled', y>4);
-      if(window.innerWidth<1024){
-        if(y>lastY && y>120){header.style.transform='translateY(-100%)'}
-        else{header.style.transform='translateY(0)'}
-        lastY=y;
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bianca Docilio - Farmacêutica | Cuidado com Excelência</title>
+    <meta
+      name="description"
+      content="Consultoria farmacêutica personalizada com Bianca Docilio. Acompanhamento medicamentoso e otimização de tratamentos."
+    />
+    <meta
+      name="keywords"
+      content="farmacêutica, consultoria, medicamentos, bianca docilio, acompanhamento farmacoterapêutico, farmácia clínica, atenção farmacêutica"
+    />
+    <meta name="theme-color" content="#8B5FBF" />
+    <meta property="og:title" content="Bianca Docilio - Farmacêutica" />
+    <meta
+      property="og:description"
+      content="Consultoria medicamentosa personalizada para sua saúde e bem-estar."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://via.placeholder.com/1200x630.png?text=Bianca+Docilio"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"
+      defer
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"
+      defer
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"
+      defer
+    ></script>
+    <style>
+      :root {
+        --primary: #8b5fbf;
+        --secondary: #ff6b9d;
+        --accent: #6ec3c4;
+        --neutral: #4a4a4a;
+        --light: #f8f7fc;
       }
-    });
-
-    // Scrollspy
-    const navLinks=[...document.querySelectorAll('.navbar a')];
-    const sections=navLinks.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
-    const activate=(id)=>{
-      navLinks.forEach(a=>{
-        const on=a.getAttribute('href')===`#${id}`;
-        a.classList.toggle('active',on);
-      });
-    };
-    const observer=new IntersectionObserver((entries)=>{
-      entries.forEach(entry=>{ if(entry.isIntersecting){ activate(entry.target.id); } });
-    },{rootMargin:'-40% 0px -55% 0px',threshold:0});
-    sections.forEach(sec=>observer.observe(sec));
-
-    // Smooth scroll (compensa o header)
-    function smoothTo(hash){
-      const el=document.querySelector(hash); if(!el) return;
-      const rect=el.getBoundingClientRect(); const y=window.scrollY+rect.top-80;
-      window.scrollTo({top:y,behavior:'smooth'});
-    }
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener('click',(e)=>{
-        const href=a.getAttribute('href');
-        if(href && href.startsWith('#')){
-          e.preventDefault();
-          if(drawer.classList.contains('open')) closeDrawer();
-          smoothTo(href);
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: var(--light);
+        color: var(--neutral);
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: "Poppins", sans-serif;
+      }
+      .btn-primary {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        transition: all 0.3s ease;
+        border-radius: 8px;
+        padding: 12px 24px;
+        font-weight: 600;
+        color: #fff;
+      }
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(139, 95, 191, 0.3);
+      }
+      .btn-secondary {
+        background: var(--accent);
+        transition: all 0.3s ease;
+        border-radius: 8px;
+        padding: 12px 24px;
+        font-weight: 600;
+        color: #fff;
+      }
+      .btn-secondary:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 20px rgba(110, 195, 196, 0.3);
+      }
+      .magnetic-btn {
+        transition: transform 0.3s ease;
+      }
+      .magnetic-btn:hover {
+        transform: scale(1.05);
+      }
+      .floating-particles {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        overflow: hidden;
+      }
+      .particle {
+        position: absolute;
+        background: rgba(139, 95, 191, 0.1);
+        border-radius: 50%;
+        animation: float 6s infinite ease-in-out;
+      }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
         }
-      });
-    });
-
-    // Swiper
-    const swiper=new Swiper('.mySwiper',{
-      slidesPerView:1,
-      spaceBetween:24,
-      loop:true,
-      autoplay:{delay:4500,disableOnInteraction:false},
-      pagination:{el:'.swiper-pagination',clickable:true},
-      navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'},
-      breakpoints:{640:{slidesPerView:1},768:{slidesPerView:2},1024:{slidesPerView:2}}
-    });
-
-    // Form feedback simples
-    (function(){
-      const form=document.getElementById('appointment-form');
-      const feedback=document.getElementById('form-feedback');
-      if(form){
-        form.addEventListener('submit',function(e){
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+      .gradient-text {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .card-hover {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .card-hover:hover {
+        transform: rotateY(5deg) scale(1.05);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      }
+      .timeline-line {
+        position: relative;
+      }
+      .timeline-line::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(to bottom, var(--primary), var(--accent));
+        transform: translateX(-50%);
+      }
+      .accordion-item {
+        overflow: hidden;
+        transition: max-height 0.4s ease, border-color 0.3s;
+      }
+      .accordion-item.collapsed {
+        max-height: 56px;
+      }
+      .accordion-item.expanded {
+        max-height: 500px;
+      }
+      .loading-spinner {
+        border: 2px solid var(--light);
+        border-top: 2px solid var(--primary);
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        animation: spin 1s linear infinite;
+        display: inline-block;
+        margin-right: 8px;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      header.backdrop {
+        backdrop-filter: saturate(180%) blur(8px);
+        background: rgba(255, 255, 255, 0.8);
+      }
+      @media (max-width: 768px) {
+        .hero-content {
+          text-align: center;
+        }
+        .timeline-line::before {
+          left: 20px;
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800">
+    <a href="#conteudo" class="sr-only focus:not-sr-only focus:block p-2"
+      >Pular para o conteúdo</a
+    >
+    <header class="bg-white/90 backdrop sticky top-0 z-50">
+      <nav
+        class="container mx-auto px-4 py-4 flex justify-between items-center"
+        aria-label="principal"
+      >
+        <div class="text-2xl font-bold gradient-text">Bianca Docilio</div>
+        <ul class="hidden md:flex gap-6">
+          <li>
+            <a
+              href="#hero"
+              class="text-gray-700 hover:text-purple-600 transition"
+              >Início</a
+            >
+          </li>
+          <li>
+            <a
+              href="#especialidades"
+              class="text-gray-700 hover:text-purple-600 transition"
+              >Especialidades</a
+            >
+          </li>
+          <li>
+            <a
+              href="#timeline"
+              class="text-gray-700 hover:text-purple-600 transition"
+              >Timeline</a
+            >
+          </li>
+          <li>
+            <a
+              href="#servicos"
+              class="text-gray-700 hover:text-purple-600 transition"
+              >Serviços</a
+            >
+          </li>
+          <li>
+            <a
+              href="#depoimentos"
+              class="text-gray-700 hover:text-purple-600 transition"
+              >Depoimentos</a
+            >
+          </li>
+          <li>
+            <a
+              href="#contato"
+              class="text-gray-700 hover:text-purple-600 transition"
+              >Contato</a
+            >
+          </li>
+        </ul>
+        <button
+          id="mobile-menu-btn"
+          class="md:hidden text-gray-700 focus:outline-none"
+          aria-label="Abrir menu"
+        >
+          <i class="fas fa-bars"></i>
+        </button>
+      </nav>
+      <div
+        id="mobile-menu"
+        class="md:hidden bg-white shadow-md hidden"
+        role="dialog"
+        aria-modal="true"
+      >
+        <ul class="px-4 py-2 space-y-2">
+          <li>
+            <a
+              href="#hero"
+              class="block py-2 text-gray-700 hover:text-purple-600"
+              >Início</a
+            >
+          </li>
+          <li>
+            <a
+              href="#especialidades"
+              class="block py-2 text-gray-700 hover:text-purple-600"
+              >Especialidades</a
+            >
+          </li>
+          <li>
+            <a
+              href="#timeline"
+              class="block py-2 text-gray-700 hover:text-purple-600"
+              >Timeline</a
+            >
+          </li>
+          <li>
+            <a
+              href="#servicos"
+              class="block py-2 text-gray-700 hover:text-purple-600"
+              >Serviços</a
+            >
+          </li>
+          <li>
+            <a
+              href="#depoimentos"
+              class="block py-2 text-gray-700 hover:text-purple-600"
+              >Depoimentos</a
+            >
+          </li>
+          <li>
+            <a
+              href="#contato"
+              class="block py-2 text-gray-700 hover:text-purple-600"
+              >Contato</a
+            >
+          </li>
+        </ul>
+      </div>
+    </header>
+    <main id="conteudo">
+      <section
+        id="hero"
+        class="relative py-20 bg-gradient-to-br from-purple-100 to-pink-100 overflow-hidden"
+      >
+        <div class="floating-particles" aria-hidden="true" id="particles"></div>
+        <div
+          class="container mx-auto px-4 flex flex-col md:flex-row items-center"
+        >
+          <div class="md:w-1/2 hero-content">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 gradient-text">
+              Bianca Docilio - Cuidado Farmacêutico com Excelência
+            </h1>
+            <p class="text-xl mb-8 text-gray-700">
+              Consultoria medicamentosa personalizada para sua saúde e bem-estar
+            </p>
+            <div class="flex gap-4">
+              <a href="#contato" class="btn-primary magnetic-btn"
+                >Agendar Consultoria</a
+              >
+              <a href="#servicos" class="btn-secondary magnetic-btn"
+                >Ver Serviços</a
+              >
+            </div>
+          </div>
+          <div class="md:w-1/2 mt-8 md:mt-0 flex justify-center hero-image">
+            <img
+              src="https://via.placeholder.com/400x500?text=Bianca+Docilio"
+              alt="Retrato de Bianca Docilio"
+              class="rounded-full w-64 h-80 object-cover shadow-lg hover:scale-105 transition-transform"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </section>
+      <section id="especialidades" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+          <h2 class="text-3xl font-bold text-center mb-12 gradient-text">
+            Áreas de Atuação
+          </h2>
+          <div class="swiper swiper-especialidades">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <div
+                  class="card-hover bg-white p-6 rounded-lg text-center shadow-lg h-full flex flex-col justify-between"
+                >
+                  <i
+                    class="fas fa-stethoscope text-4xl text-purple-600 mb-4"
+                    aria-hidden="true"
+                  ></i>
+                  <h3 class="text-xl font-semibold mb-2">Farmácia Clínica</h3>
+                  <p>
+                    Aplicação prática da farmácia no cuidado direto ao paciente.
+                  </p>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div
+                  class="card-hover bg-white p-6 rounded-lg text-center shadow-lg h-full flex flex-col justify-between"
+                >
+                  <i
+                    class="fas fa-heart text-4xl text-pink-600 mb-4"
+                    aria-hidden="true"
+                  ></i>
+                  <h3 class="text-xl font-semibold mb-2">
+                    Atenção Farmacêutica
+                  </h3>
+                  <p>Foco na promoção da saúde e prevenção de doenças.</p>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div
+                  class="card-hover bg-white p-6 rounded-lg text-center shadow-lg h-full flex flex-col justify-between"
+                >
+                  <i
+                    class="fas fa-pills text-4xl text-teal-600 mb-4"
+                    aria-hidden="true"
+                  ></i>
+                  <h3 class="text-xl font-semibold mb-2">
+                    Consultoria em Medicamentos
+                  </h3>
+                  <p>
+                    Orientação especializada sobre uso e efeitos de
+                    medicamentos.
+                  </p>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div
+                  class="card-hover bg-white p-6 rounded-lg text-center shadow-lg h-full flex flex-col justify-between"
+                >
+                  <i
+                    class="fas fa-chart-line text-4xl text-purple-600 mb-4"
+                    aria-hidden="true"
+                  ></i>
+                  <h3 class="text-xl font-semibold mb-2">
+                    Gestão de Tratamentos
+                  </h3>
+                  <p>Otimização e acompanhamento de regimes terapêuticos.</p>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+      </section>
+      <section id="timeline" class="py-20 bg-gray-100">
+        <div class="container mx-auto px-4">
+          <h2 class="text-3xl font-bold text-center mb-12 gradient-text">
+            Minha Jornada Profissional
+          </h2>
+          <div class="timeline-line">
+            <div
+              class="timeline-item grid grid-cols-1 md:grid-cols-3 items-center gap-4 mb-10"
+            >
+              <div class="md:col-span-1 order-2 md:order-1 text-right md:pr-8">
+                <h3 class="text-xl font-semibold">Formação Acadêmica</h3>
+                <p>
+                  Graduação em Farmácia pela
+                  <span class="italic">[Universidade]</span>, com especialização
+                  em Farmácia Clínica.
+                </p>
+              </div>
+              <div class="md:col-span-1 order-1 md:order-2 flex justify-center">
+                <div
+                  class="w-4 h-4 bg-purple-600 rounded-full"
+                  aria-hidden="true"
+                ></div>
+              </div>
+              <div class="md:col-span-1 order-3 md:order-3"></div>
+            </div>
+            <div
+              class="timeline-item grid grid-cols-1 md:grid-cols-3 items-center gap-4 mb-10"
+            >
+              <div class="md:col-span-1"></div>
+              <div class="md:col-span-1 flex justify-center">
+                <div
+                  class="w-4 h-4 bg-pink-600 rounded-full"
+                  aria-hidden="true"
+                ></div>
+              </div>
+              <div class="md:col-span-1 md:pl-8">
+                <h3 class="text-xl font-semibold">Experiência Profissional</h3>
+                <p>
+                  <span class="italic">[X]</span> anos dedicados à consultoria
+                  farmacêutica e atendimento ao paciente.
+                </p>
+              </div>
+            </div>
+            <div
+              class="timeline-item grid grid-cols-1 md:grid-cols-3 items-center gap-4"
+            >
+              <div class="md:col-span-1 order-2 md:order-1 text-right md:pr-8">
+                <h3 class="text-xl font-semibold">Missão Atual</h3>
+                <p>
+                  Oferecer cuidado empático e personalizado para transformar
+                  vidas através da saúde.
+                </p>
+              </div>
+              <div class="md:col-span-1 order-1 md:order-2 flex justify-center">
+                <div
+                  class="w-4 h-4 bg-teal-600 rounded-full"
+                  aria-hidden="true"
+                ></div>
+              </div>
+              <div class="md:col-span-1 order-3 md:order-3"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="servicos" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+          <h2 class="text-3xl font-bold text-center mb-12 gradient-text">
+            Como Posso Ajudar?
+          </h2>
+          <div class="space-y-4 max-w-3xl mx-auto">
+            <div
+              class="accordion-item collapsed border border-gray-200 rounded-lg"
+            >
+              <button
+                class="w-full text-left p-4 bg-gray-100 rounded-lg font-semibold hover:bg-gray-200 transition flex items-center justify-between"
+                onclick="toggleAccordion(this)"
+                aria-expanded="false"
+              >
+                <span
+                  ><i class="fas fa-user-friends mr-2"></i>Consulta
+                  Farmacêutica</span
+                >
+                <i class="fa-solid fa-chevron-down"></i>
+              </button>
+              <div class="p-4" aria-hidden="true">
+                <p>
+                  Presencial ou online, para avaliação e orientação
+                  personalizada.
+                </p>
+              </div>
+            </div>
+            <div
+              class="accordion-item collapsed border border-gray-200 rounded-lg"
+            >
+              <button
+                class="w-full text-left p-4 bg-gray-100 rounded-lg font-semibold hover:bg-gray-200 transition flex items-center justify-between"
+                onclick="toggleAccordion(this)"
+                aria-expanded="false"
+              >
+                <span
+                  ><i class="fas fa-clipboard-check mr-2"></i>Revisão de
+                  Prescrições</span
+                >
+                <i class="fa-solid fa-chevron-down"></i>
+              </button>
+              <div class="p-4" aria-hidden="true">
+                <p>
+                  Análise detalhada para segurança e eficácia dos tratamentos.
+                </p>
+              </div>
+            </div>
+            <div
+              class="accordion-item collapsed border border-gray-200 rounded-lg"
+            >
+              <button
+                class="w-full text-left p-4 bg-gray-100 rounded-lg font-semibold hover:bg-gray-200 transition flex items-center justify-between"
+                onclick="toggleAccordion(this)"
+                aria-expanded="false"
+              >
+                <span
+                  ><i class="fas fa-heartbeat mr-2"></i>Acompanhamento de
+                  Crônicos</span
+                >
+                <i class="fa-solid fa-chevron-down"></i>
+              </button>
+              <div class="p-4" aria-hidden="true">
+                <p>
+                  Suporte contínuo para doenças crônicas como diabetes e
+                  hipertensão.
+                </p>
+              </div>
+            </div>
+            <div
+              class="accordion-item collapsed border border-gray-200 rounded-lg"
+            >
+              <button
+                class="w-full text-left p-4 bg-gray-100 rounded-lg font-semibold hover:bg-gray-200 transition flex items-center justify-between"
+                onclick="toggleAccordion(this)"
+                aria-expanded="false"
+              >
+                <span
+                  ><i class="fas fa-chalkboard-teacher mr-2"></i>Palestras e
+                  Workshops</span
+                >
+                <i class="fa-solid fa-chevron-down"></i>
+              </button>
+              <div class="p-4" aria-hidden="true">
+                <p>Educação em saúde para indivíduos e grupos empresariais.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="depoimentos" class="py-20 bg-gray-100">
+        <div class="container mx-auto px-4">
+          <h2 class="text-3xl font-bold text-center mb-12 gradient-text">
+            O que Dizem Nossos Pacientes
+          </h2>
+          <div class="swiper swiper-depoimentos">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <figure
+                  class="bg-white p-6 rounded-lg text-center shadow-lg h-full flex flex-col justify-between"
+                >
+                  <img
+                    src="https://via.placeholder.com/100x100?text=Carla"
+                    alt="Foto de perfil de Carla Mendes"
+                    class="rounded-full w-16 h-16 mx-auto mb-4"
+                    loading="lazy"
+                  />
+                  <blockquote class="mb-4">
+                    “A Bianca me ajudou a entender meus medicamentos. Sinto-me
+                    mais confiante!”
+                  </blockquote>
+                  <figcaption class="font-semibold">Carla Mendes</figcaption>
+                </figure>
+              </div>
+              <div class="swiper-slide">
+                <figure
+                  class="bg-white p-6 rounded-lg text-center shadow-lg h-full flex flex-col justify-between"
+                >
+                  <img
+                    src="https://via.placeholder.com/100x100?text=Rafael"
+                    alt="Foto de perfil de Rafael Lima"
+                    class="rounded-full w-16 h-16 mx-auto mb-4"
+                    loading="lazy"
+                  />
+                  <blockquote class="mb-4">
+                    “Consultoria online prática e esclarecedora. Recomendo!”
+                  </blockquote>
+                  <figcaption class="font-semibold">Rafael Lima</figcaption>
+                </figure>
+              </div>
+              <div class="swiper-slide">
+                <figure
+                  class="bg-white p-6 rounded-lg text-center shadow-lg h-full flex flex-col justify-between"
+                >
+                  <img
+                    src="https://via.placeholder.com/100x100?text=Sofia"
+                    alt="Foto de perfil de Sofia Alves"
+                    class="rounded-full w-16 h-16 mx-auto mb-4"
+                    loading="lazy"
+                  />
+                  <blockquote class="mb-4">
+                    “Profissionalismo e empatia. Minha saúde melhorou muito.”
+                  </blockquote>
+                  <figcaption class="font-semibold">Sofia Alves</figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+      </section>
+      <section id="contato" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+          <h2 class="text-3xl font-bold text-center mb-12 gradient-text">
+            Entre em Contato
+          </h2>
+          <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            <form
+              id="contactForm"
+              class="bg-white p-6 rounded-lg shadow"
+              novalidate
+            >
+              <div class="grid grid-cols-1 gap-4">
+                <label class="block">
+                  <span class="text-sm font-medium">Nome</span>
+                  <input
+                    required
+                    name="nome"
+                    type="text"
+                    class="mt-1 w-full border border-gray-300 rounded-md p-2"
+                    placeholder="Seu nome"
+                  />
+                </label>
+                <label class="block">
+                  <span class="text-sm font-medium">E-mail</span>
+                  <input
+                    required
+                    name="email"
+                    type="email"
+                    class="mt-1 w-full border border-gray-300 rounded-md p-2"
+                    placeholder="voce@email.com"
+                  />
+                </label>
+                <label class="block">
+                  <span class="text-sm font-medium">Mensagem</span>
+                  <textarea
+                    required
+                    name="mensagem"
+                    rows="4"
+                    class="mt-1 w-full border border-gray-300 rounded-md p-2"
+                    placeholder="Como posso ajudar?"
+                  ></textarea>
+                </label>
+                <button type="submit" class="btn-primary w-max">
+                  <span class="sr-only">Enviar formulário</span>
+                  Enviar
+                </button>
+                <p id="formStatus" class="text-sm mt-3"></p>
+              </div>
+            </form>
+            <div class="bg-gray-50 p-6 rounded-lg shadow">
+              <ul class="space-y-3">
+                <li>
+                  <i class="fa-solid fa-envelope mr-2" aria-hidden="true"></i
+                  ><a href="mailto:contato@biancadocilio.com"
+                    >contato@biancadocilio.com</a
+                  >
+                </li>
+                <li>
+                  <i class="fa-brands fa-whatsapp mr-2" aria-hidden="true"></i
+                  ><a
+                    href="https://wa.me/5500000000000"
+                    target="_blank"
+                    rel="noopener"
+                    >WhatsApp</a
+                  >
+                </li>
+                <li>
+                  <i
+                    class="fa-solid fa-location-dot mr-2"
+                    aria-hidden="true"
+                  ></i
+                  >Atendimento presencial em
+                  <span class="italic">[Cidade / Estado]</span> e online para
+                  todo o Brasil.
+                </li>
+                <li>
+                  <div class="h-64 w-full rounded-lg overflow-hidden bg-white">
+                    <iframe
+                      title="Mapa de atendimento"
+                      class="w-full h-full"
+                      loading="lazy"
+                      referrerpolicy="no-referrer-when-downgrade"
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.068028016618!2d-46.652985723716705!3d-23.566079161764155!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59c9ca72a3b1%3A0xf2a381dffb743d0f!2sAv.%20Paulista%2C%20S%C3%A3o%20Paulo%20-%20SP!5e0!3m2!1spt-BR!2sbr!4v1686930567915"
+                    ></iframe>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="bg-white border-t">
+      <div
+        class="container mx-auto px-4 py-8 flex flex-col md:flex-row items-center justify-between gap-4"
+      >
+        <p class="text-sm">
+          © <span id="year"></span> Bianca Docilio. Todos os direitos
+          reservados.
+        </p>
+        <ul class="flex gap-4 text-xl">
+          <li>
+            <a href="#" aria-label="Instagram" class="hover:text-purple-600"
+              ><i class="fa-brands fa-instagram"></i
+            ></a>
+          </li>
+          <li>
+            <a href="#" aria-label="LinkedIn" class="hover:text-purple-600"
+              ><i class="fa-brands fa-linkedin"></i
+            ></a>
+          </li>
+          <li>
+            <a href="#" aria-label="YouTube" class="hover:text-purple-600"
+              ><i class="fa-brands fa-youtube"></i
+            ></a>
+          </li>
+        </ul>
+      </div>
+    </footer>
+    <script>
+      const mobileBtn = document.getElementById("mobile-menu-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+      mobileBtn &&
+        mobileBtn.addEventListener("click", () => {
+          mobileMenu.classList.toggle("hidden");
+        });
+      function toggleAccordion(btn) {
+        const item = btn.parentElement;
+        const expanded = item.classList.contains("expanded");
+        document.querySelectorAll("#servicos .accordion-item").forEach((el) => {
+          el.classList.remove("expanded");
+          el.classList.add("collapsed");
+          el.querySelector("button").setAttribute("aria-expanded", "false");
+          el.querySelector("div[aria-hidden]")?.setAttribute(
+            "aria-hidden",
+            "true"
+          );
+        });
+        if (!expanded) {
+          item.classList.remove("collapsed");
+          item.classList.add("expanded");
+          btn.setAttribute("aria-expanded", "true");
+          item
+            .querySelector("div[aria-hidden]")
+            ?.setAttribute("aria-hidden", "false");
+        }
+      }
+      window.addEventListener("DOMContentLoaded", () => {
+        const year = document.getElementById("year");
+        if (year) {
+          year.textContent = new Date().getFullYear();
+        }
+        const esp = new Swiper(".swiper-especialidades", {
+          slidesPerView: 1,
+          spaceBetween: 16,
+          pagination: {
+            el: ".swiper-especialidades .swiper-pagination",
+            clickable: true,
+          },
+          breakpoints: {
+            640: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 },
+          },
+        });
+        const dep = new Swiper(".swiper-depoimentos", {
+          slidesPerView: 1,
+          spaceBetween: 16,
+          autoplay: { delay: 5000, disableOnInteraction: false },
+          loop: true,
+          pagination: {
+            el: ".swiper-depoimentos .swiper-pagination",
+            clickable: true,
+          },
+        });
+        const particles = document.getElementById("particles");
+        if (particles) {
+          const total = 18;
+          for (let i = 0; i < total; i++) {
+            const d = document.createElement("div");
+            d.className = "particle";
+            const size = 8 + Math.random() * 12;
+            d.style.width = size + "px";
+            d.style.height = size + "px";
+            d.style.left = Math.random() * 100 + "%";
+            d.style.top = Math.random() * 60 + "%";
+            d.style.animationDelay = (Math.random() * 4).toFixed(2) + "s";
+            particles.appendChild(d);
+          }
+        }
+        const form = document.getElementById("contactForm");
+        const statusEl = document.getElementById("formStatus");
+        form?.addEventListener("submit", (e) => {
           e.preventDefault();
-          const name=document.getElementById('name').value.trim();
-          const email=document.getElementById('email').value.trim();
-          const phone=document.getElementById('phone').value.trim();
-          const type=document.getElementById('type').value;
-          if(!name||!email||!phone||!type){
-            feedback.textContent='Preencha todos os campos obrigatórios.';
-            feedback.className='text-center text-sm mt-3 text-red-600';
+          const data = new FormData(form);
+          const nome = data.get("nome");
+          const email = data.get("email");
+          const msg = data.get("mensagem");
+          if (!nome || !email || !msg) {
+            statusEl.textContent = "Por favor, preencha todos os campos.";
+            statusEl.className = "text-sm mt-3 text-red-600";
             return;
           }
-          feedback.textContent='Obrigada! Sua solicitação foi recebida. Em breve entrarei em contato.';
-          feedback.className='text-center text-sm mt-3 text-green-600';
-          form.reset();
+          statusEl.innerHTML =
+            '<span class="loading-spinner"></span>Enviando...';
+          setTimeout(() => {
+            statusEl.textContent = "Mensagem enviada! Retornarei em breve.";
+            statusEl.className = "text-sm mt-3 text-green-700";
+            form.reset();
+          }, 900);
         });
-      }
-    })();
-
-    // Footer year
-    document.getElementById('year').textContent=new Date().getFullYear();
-
-    // GSAP
-    gsap.registerPlugin(ScrollTrigger);
-    gsap.from('#hero h1',{y:24,opacity:0,duration:.8,ease:'power2.out'});
-    gsap.from('#hero p',{y:28,opacity:0,duration:.8,delay:.1,ease:'power2.out'});
-    gsap.fromTo('#hero .btn-primary, #hero .btn-secondary',
-    { y: 28, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.08, delay: 0.2, ease: 'power2.out', immediateRender: false, onComplete: () => gsap.set('#hero .btn-primary, #hero .btn-secondary', { clearProps: 'opacity,transform' })}
-    );
-
-
-    ['#especialidades','#sobre','#beneficios','#servicos','#depoimentos','#atendimento','#agendamento','#blog','#contato'].forEach(sel=>{
-      gsap.from(`${sel} h2`,{
-        scrollTrigger:{trigger:sel,start:'top 80%'},
-        y:24,opacity:0,duration:.7,ease:'power2.out'
+        if (window.gsap && window.ScrollTrigger) {
+          gsap.utils.toArray(".card-hover").forEach((el, i) => {
+            gsap.from(el, {
+              scrollTrigger: { trigger: el, start: "top 85%" },
+              y: 20,
+              opacity: 0,
+              duration: 0.6,
+              delay: i * 0.05,
+            });
+          });
+          gsap.from(".hero-image img", { y: 10, opacity: 0, duration: 0.8 });
+          gsap.from(".hero-content > *", {
+            y: 10,
+            opacity: 0,
+            stagger: 0.08,
+            duration: 0.6,
+          });
+        }
       });
-      gsap.from(`${sel} .card-shadow, ${sel} .swiper, ${sel} form, ${sel} article`,{
-        scrollTrigger:{trigger:sel,start:'top 78%'},
-        y:22,opacity:0,duration:.6,stagger:.06,ease:'power2.out'
-      });
-    });
-  </script>
-</body>
+    </script>
+  </body>
 </html>
