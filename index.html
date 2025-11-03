@@ -61,41 +61,34 @@
       border-bottom:1px solid rgba(0,0,0,.04);
     }
     .header.scrolled{box-shadow:0 10px 28px -24px rgba(0,0,0,.35)}
-    .navbar a{padding:.625rem .5rem;line-height:1;position:relative}
-    .navbar a .dot{
-      content:"";position:absolute;left:50%;bottom:-4px;transform:translateX(-50%) scale(.4);
-      width:6px;height:6px;border-radius:9999px;background:linear-gradient(90deg,var(--primary),var(--pink));
-      opacity:0;transition:opacity .25s, transform .25s;
-    }
-    .navbar a.active .dot,.navbar a:hover .dot{opacity:1;transform:translateX(-50%) scale(1)}
+    .navbar{gap:2rem;align-items:center;white-space:nowrap}
+    .navbar a{display:inline-flex;align-items:center;position:relative;padding:.75rem 0;font-weight:500;color:#374151}
+    .navbar a:hover{color:#111827}
+    .navbar a.active{color:#111827}
+    .navbar a .dot{position:absolute;left:50%;bottom:-10px;width:6px;height:6px;border-radius:9999px;background:linear-gradient(90deg,var(--primary),var(--pink));opacity:0;transform:translateX(-50%);transition:opacity .25s, transform .25s}
+    .navbar a.active .dot,.navbar a:hover .dot{opacity:1;transform:translateX(-50%)}
 
     /* Mobile drawer */
-    .drawer{position:fixed;inset:0;pointer-events:none;display:none}
+    .drawer{position:fixed;inset:0;pointer-events:none;display:none;z-index:1000}
     .drawer.open{pointer-events:auto;display:block}
-    .drawer .overlay{position:absolute;inset:0;background:rgba(17,24,39,.45);opacity:0;transition:opacity .25s}
+    .drawer .overlay{position:absolute;inset:0;background:rgba(17,24,39,.55);opacity:0;transition:opacity .25s}
     .drawer.open .overlay{opacity:1}
-    .drawer .panel{
-      position:absolute;right:0;top:0;height:100%;width:84%;max-width:360px;background:#fff;
-      transform:translateX(100%);transition:transform .3s ease;display:flex;flex-direction:column;
-      box-shadow:-10px 0 28px -20px rgba(0,0,0,.35)
-    }
+    .drawer .panel{position:absolute;right:0;top:0; height:100dvh; width:min(92vw,420px);max-width:100%; background:#fff;transform:translateX(100%); transition:transform .30s cubic-bezier(.22,.61,.36,1); display:grid;grid-template-rows:auto 1fr auto; overflow:hidden; box-shadow:-12px 0 32px rgba(0,0,0,.18);}
     .drawer.open .panel{transform:translateX(0)}
-    .no-scroll{overflow:hidden}
-    .drawer{z-index:60}
+    .no-scroll{overflow:hidden;height:100vh;touch-action:none}
+    .panel-nav{overflow:auto;-webkit-overflow-scrolling:touch; padding:1rem; padding-bottom:calc(env(safe-area-inset-bottom,0px) + 16px);}
+    .panel-footer{background:#fff;border-top:1px solid #f3f4f6;padding:1rem;padding-bottom:calc(env(safe-area-inset-bottom,0px) + 16px)}
+    .panel-actions{display:grid;grid-template-columns:1fr;gap:.75rem}
+    .panel-actions a{display:flex;width:100%;height:52px;align-items:center;justify-content:center;border-radius:14px;font-weight:700;letter-spacing:.2px;box-shadow:0 14px 28px -18px rgba(0,0,0,.22)}
+    #header{position:sticky;top:0;z-index:500}
 
-    /* Nunca renderizar o drawer no desktop mesmo se ficar "open" por resize */
     @media (min-width:1024px){
       #drawer{display:none!important}
-      body.no-scroll{overflow:auto} /* fallback para não travar o scroll ao trocar de breakpoint */
+      body.no-scroll{overflow:auto}
     }
 
-    /* Foco acessível */
     a:focus-visible,
-    button:focus-visible{
-      outline:2px solid var(--pink-700);
-      outline-offset:3px;
-      border-radius:.75rem; /* casa com rounded-lg dos botões */
-    }
+    button:focus-visible{outline:2px solid var(--pink-700); outline-offset:3px; border-radius:.75rem;}
 
     .icon-pink{color:var(--pink-700)}
     .icon-fuchsia{color:var(--primary)}
@@ -128,7 +121,7 @@
         </a>
 
         <!-- Desktop nav -->
-        <ul class="navbar hidden lg:flex items-center space-x-4 xl:space-x-6">
+        <ul class="navbar hidden lg:flex">
           <li><a href="#hero" class="text-gray-700 hover:text-pink-600 transition active">Início<span class="dot"></span></a></li>
           <li><a href="#especialidades" class="text-gray-700 hover:text-pink-600 transition">Especialidades<span class="dot"></span></a></li>
           <li><a href="#sobre" class="text-gray-700 hover:text-pink-600 transition">Sobre<span class="dot"></span></a></li>
@@ -150,6 +143,7 @@
         </div>
       </nav>
     </div>
+  </header>
 
     <!-- Mobile Drawer -->
     <div id="drawer" class="drawer" aria-hidden="true">
@@ -167,7 +161,7 @@
             <i class="fas fa-xmark"></i>
           </button>
         </div>
-        <nav class="p-4 flex-1">
+        <nav class="panel-nav navbar">
           <ul class="space-y-1 text-base">
             <li><a class="block px-3 py-3 rounded-lg hover:bg-gray-50" href="#hero">Início</a></li>
             <li><a class="block px-3 py-3 rounded-lg hover:bg-gray-50" href="#especialidades">Especialidades</a></li>
@@ -181,13 +175,14 @@
             <li><a class="block px-3 py-3 rounded-lg hover:bg-gray-50" href="#contato">Contato</a></li>
           </ul>
         </nav>
-        <div class="p-4 border-t border-gray-100 space-y-3">
-          <a href="https://wa.me/5599999999999" class="btn-secondary w-full text-center py-3 rounded-lg font-semibold">Falar no WhatsApp</a>
-          <a href="#agendamento" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">Agendar Consultoria</a>
+        <div class="panel-footer">
+          <div class="panel-actions">
+            <a href="https://wa.me/5599999999999" class="btn-secondary">Falar no WhatsApp</a>
+            <a href="#agendamento" class="btn-primary">Agendar Consultoria</a>
+          </div>
         </div>
       </aside>
     </div>
-  </header>
 
   <!-- Hero -->
   <section id="hero" class="hero-bg text-white pt-20 pb-24">
@@ -195,27 +190,29 @@
       <div class="md:w-1/2 text-center md:text-left">
         <span class="inline-block text-sm px-3 py-1 rounded-full" style="background:rgba(255,255,255,.18)">Cuidado farmacêutico personalizado</span>
         <h1 class="text-4xl md:text-5xl font-bold mt-4">Bianca Docilio — acolhimento, ciência e resultado</h1>
-        <p class="text-lg md:text-xl mt-4 opacity-95">Consultoria medicamentosa sob medida para sua rotina e objetivos de saúde.</p>
+
+        <div class="md:hidden flex justify-center my-6">
+          <div class="relative">
+            <img src="assets/perfil.jpeg" alt="Bianca Docilio" class="rounded-3xl w-72 h-96 object-cover shadow-2xl">
+            <span class="absolute -bottom-4 -right-4 w-24 h-24 rounded-2xl" style="background:linear-gradient(135deg,var(--peach),#fecdd3);filter:blur(8px);opacity:.6"></span>
+          </div>
+        </div>
+
+        <p class="text-lg md:text-xl opacity-95">Consultoria medicamentosa sob medida para sua rotina e objetivos de saúde.</p>
         <div class="hero-cta mt-8 flex flex-col sm:flex-row gap-3 isolation-auto">
-          <a href="#agendamento"
-            class="btn-primary inline-flex items-center justify-center px-6 py-3 rounded-lg font-semibold">
-            Agendar Consultoria
-          </a>
-          <a href="#servicos"
-            class="btn-secondary inline-flex items-center justify-center px-6 py-3 rounded-lg font-semibold">
-            Ver Serviços
-          </a>
+          <a href="#agendamento" class="btn-primary inline-flex items-center justify-center px-6 py-3 rounded-lg font-semibold">Agendar Consultoria</a>
+          <a href="#servicos" class="btn-secondary inline-flex items-center justify-center px-6 py-3 rounded-lg font-semibold">Ver Serviços</a>
         </div>
         <div class="mt-6 flex items-center justify-center md:justify-start space-x-3 text-sm opacity-95">
           <span class="px-3 py-1 rounded-full" style="background:rgba(255,255,255,.22)">+10 anos de experiência</span>
           <span class="px-3 py-1 rounded-full" style="background:rgba(255,255,255,.22)">Online e presencial</span>
         </div>
       </div>
-      <div class="md:w-1/2 mt-10 md:mt-0 flex justify-center">
+
+      <div class="md:w-1/2 mt-10 md:mt-0 hidden md:flex justify-center">
         <div class="relative">
-          <img src="assets/perfil.jpeg" alt="Bianca Docilio" class="rounded-3xl w-72 h-96 md:w-80 md:h-[28rem] object-cover shadow-2xl">
-          <span class="absolute -bottom-4 -right-4 w-24 h-24 rounded-2xl"
-                style="background:linear-gradient(135deg,var(--peach),#fecdd3);filter:blur(8px);opacity:.6"></span>
+          <img src="assets/perfil.jpeg" alt="Bianca Docilio" class="rounded-3xl w-80 h-[28rem] object-cover shadow-2xl">
+          <span class="absolute -bottom-4 -right-4 w-24 h-24 rounded-2xl" style="background:linear-gradient(135deg,var(--peach),#fecdd3);filter:blur(8px);opacity:.6"></span>
         </div>
       </div>
     </div>
@@ -322,21 +319,21 @@
         <div class="swiper-wrapper">
           <div class="swiper-slide">
             <div class="card-shadow bg-white p-8 rounded-2xl text-center">
-              <img src="https://via.placeholder.com/96x96?text=C" alt="Carla Mendes" class="rounded-full w-16 h-16 mx-auto mb-4">
+              <img src="assets/carla-mendes.jpg" alt="Carla Mendes" class="rounded-full w-16 h-16 mx-auto mb-4">
               <p class="mb-4">"A Bianca me ajudou a entender meus medicamentos. Sinto-me mais confiante!"</p>
               <p class="font-semibold">Carla Mendes</p>
             </div>
           </div>
           <div class="swiper-slide">
             <div class="card-shadow bg-white p-8 rounded-2xl text-center">
-              <img src="https://via.placeholder.com/96x96?text=R" alt="Rafael Lima" class="rounded-full w-16 h-16 mx-auto mb-4">
+              <img src="assets/rafael-lima.jpg" alt="Rafael Lima" class="rounded-full w-16 h-16 mx-auto mb-4">
               <p class="mb-4">"Consultoria online prática e esclarecedora. Recomendo!"</p>
               <p class="font-semibold">Rafael Lima</p>
             </div>
           </div>
           <div class="swiper-slide">
             <div class="card-shadow bg-white p-8 rounded-2xl text-center">
-              <img src="https://via.placeholder.com/96x96?text=S" alt="Sofia Alves" class="rounded-full w-16 h-16 mx-auto mb-4">
+              <img src="assets/sofia-alves.webp" alt="Sofia Alves" class="rounded-full w-16 h-16 mx-auto mb-4">
               <p class="mb-4">"Profissionalismo e empatia. Minha saúde melhorou muito."</p>
               <p class="font-semibold">Sofia Alves</p>
             </div>
@@ -541,14 +538,12 @@
       const rect=el.getBoundingClientRect(); const y=window.scrollY+rect.top-80;
       window.scrollTo({top:y,behavior:'smooth'});
     }
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener('click',(e)=>{
-        const href=a.getAttribute('href');
-        if(href && href.startsWith('#')){
-          e.preventDefault();
-          if(drawer.classList.contains('open')) closeDrawer();
-          smoothTo(href);
-        }
+    document.querySelectorAll('#drawer a[href^="#"], header a[href^="#"]').forEach(a=>{
+      a.addEventListener('click',e=>{
+        const href=a.getAttribute('href'); if(!href) return;
+        e.preventDefault();
+        if(drawer.classList.contains('open')) closeDrawer();
+        smoothTo(href);
       });
     });
 
