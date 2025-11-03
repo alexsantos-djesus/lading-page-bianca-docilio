@@ -81,6 +81,13 @@
     }
     .drawer.open .panel{transform:translateX(0)}
     .no-scroll{overflow:hidden}
+    .drawer{z-index:60}
+
+    /* Nunca renderizar o drawer no desktop mesmo se ficar "open" por resize */
+    @media (min-width:1024px){
+      #drawer{display:none!important}
+      body.no-scroll{overflow:auto} /* fallback para não travar o scroll ao trocar de breakpoint */
+    }
 
     /* Foco acessível */
     a:focus-visible,
@@ -483,15 +490,34 @@
     closeDrawerBtn.addEventListener('click',closeDrawer);
     document.addEventListener('keydown',(e)=>{if(e.key==='Escape'&&drawer.classList.contains('open')) closeDrawer()});
 
+    // Fecha o menu se trocar para desktop
+    const LG = 1024;
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= LG && drawer.classList.contains('open')) {
+        closeDrawer();
+      }
+    });
+
     // Header comportado no scroll
-    let lastY=0;
-    window.addEventListener('scroll',()=>{
-      const y=window.scrollY;
-      header.classList.toggle('scrolled', y>4);
-      if(window.innerWidth<1024){
-        if(y>lastY && y>120){header.style.transform='translateY(-100%)'}
-        else{header.style.transform='translateY(0)'}
-        lastY=y;
+    let lastY = 0;
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      header.classList.toggle('scrolled', y > 4);
+
+      if (window.innerWidth < 1024) {
+        // Se o menu estiver aberto, não mexe no header
+        if (!drawer.classList.contains('open')) {
+          if (y > lastY && y > 120) {
+            header.style.transform = 'translateY(-100%)';
+          } else {
+            header.style.transform = 'translateY(0)';
+          }
+          lastY = y;
+        } else {
+          header.style.transform = 'translateY(0)';
+        }
+      } else {
+        header.style.transform = 'translateY(0)';
       }
     });
 
