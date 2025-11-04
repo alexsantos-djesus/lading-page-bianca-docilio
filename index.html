@@ -177,7 +177,7 @@
         </nav>
         <div class="panel-footer">
           <div class="panel-actions">
-            <a href="https://wa.me/5599999999999" class="btn-secondary">Falar no WhatsApp</a>
+            <a data-whatsapp href="#" class="btn-secondary">Falar no WhatsApp (71) 98785-4355</a>
             <a href="#agendamento" class="btn-primary">Agendar Consultoria</a>
           </div>
         </div>
@@ -249,22 +249,61 @@
 
   <!-- Sobre -->
   <section id="sobre" class="py-20 section-soft">
-    <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center">
-      <div class="md:w-1/2 mb-8 md:mb-0">
-        <img src="assets/perfil.jpeg" alt="Bianca Docilio" class="rounded-full w-64 h-64 object-cover mx-auto shadow-xl">
-      </div>
-      <div class="md:w-1/2">
-        <h2 class="text-3xl font-bold mb-4 text-gray-800">Conheça a Farmacêutica Bianca Docilio</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm mb-4">
-          <p><strong>CRF:</strong> [Número do CRF]</p>
-          <p><strong>Formação:</strong> [Universidade] — [Ano]</p>
-          <p><strong>Especializações:</strong> [Listar especializações]</p>
-          <p><strong>Experiência:</strong> [X] anos</p>
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-12 gap-10 items-start">
+      <div class="md:col-span-5 flex justify-center">
+        <div class="relative">
+          <img src="assets/perfil.jpeg" alt="Bianca Docilio" class="rounded-full w-64 h-64 md:w-72 md:h-72 object-cover shadow-2xl ring-4 ring-white/60">
+          <span class="absolute -bottom-3 -right-3 w-20 h-20 rounded-2xl" style="background:linear-gradient(135deg,var(--peach),#fecdd3);filter:blur(8px);opacity:.6"></span>
         </div>
+      </div>
+
+      <div class="md:col-span-7">
+        <h2 class="text-3xl font-bold mb-4 text-gray-800">Conheça a Farmacêutica Bianca Docilio</h2>
         <p class="mb-3">Consultorias personalizadas para otimizar tratamentos e promover qualidade de vida.</p>
-        <p class="mb-4">Missão: ser sua aliada na jornada da saúde, unindo ciência, empatia e cuidado humano.</p>
-        <div id="experience-counter" class="inline-block text-base px-3 py-2 rounded-full"
-             style="background:linear-gradient(90deg, rgba(217,70,239,.12), rgba(244,114,182,.12)); color:#6b21a8">[X]+ anos de experiência</div>
+        <p class="mb-6">Missão: ser sua aliada na jornada da saúde, unindo ciência, empatia e cuidado humano.</p>
+
+        <div class="flex flex-wrap items-center gap-3 mb-8">
+          <span id="experience-counter" class="inline-block text-sm px-3 py-2 rounded-full" style="background:linear-gradient(90deg, rgba(217,70,239,.12), rgba(244,114,182,.12)); color:#6b21a8">[X]+ anos de experiência</span>
+          <span class="inline-block text-sm px-3 py-2 rounded-full" style="background:rgba(217,70,239,.1); color:#6b21a8">Farmácia Clínica</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="card-shadow bg-white rounded-2xl p-5 h-full flex flex-col">
+            <div class="flex items-center gap-2 mb-4">
+              <i class="fas fa-id-card text-lg icon-fuchsia"></i>
+              <h3 class="font-semibold text-gray-800">Dados Profissionais</h3>
+            </div>
+            <ul class="space-y-3 text-sm grow">
+              <li class="flex justify-between gap-4"><span class="text-gray-500">Registro</span><span class="font-medium text-gray-800 text-right">CRF: [CRF/UF 000000]</span></li>
+              <li class="flex justify-between gap-4"><span class="text-gray-500">Situação</span><span class="font-medium text-gray-800">Ativo</span></li>
+              <li class="flex justify-between gap-4"><span class="text-gray-500">Área</span><span class="font-medium text-gray-800">Farmácia Clínica</span></li>
+            </ul>
+          </div>
+
+          <div class="card-shadow bg-white rounded-2xl p-5 h-full flex flex-col">
+            <div class="flex items-center gap-2 mb-4">
+              <i class="fas fa-briefcase-medical text-lg icon-pink"></i>
+              <h3 class="font-semibold text-gray-800">Atuação</h3>
+            </div>
+            <ul class="space-y-3 text-sm grow">
+              <li class="flex justify-between gap-4"><span class="text-gray-500">Cidade/UF</span><span class="font-medium text-gray-800 text-right">[Cidade – UF]</span></li>
+              <li class="flex justify-between gap-4"><span class="text-gray-500">Modelo</span><span class="font-medium text-gray-800 text-right">Presencial e Online</span></li>
+              <li class="flex justify-between gap-4"><span class="text-gray-500">Público</span><span class="font-medium text-gray-800 text-right">Pacientes e Empresas</span></li>
+            </ul>
+          </div>
+
+          <div class="card-shadow bg-white rounded-2xl p-5 h-full flex flex-col">
+            <div class="flex items-center gap-2 mb-4">
+              <i class="fas fa-file-download text-lg icon-fuchsia"></i>
+              <h3 class="font-semibold text-gray-800">Documentos</h3>
+            </div>
+            <div class="mt-auto space-y-3">
+              <a href="assets/curriculo-bianca.pdf" class="btn-secondary w-full inline-flex items-center justify-center h-12 rounded-xl font-semibold">Baixar currículo (PDF)</a>
+              <a href="#" class="w-full inline-flex items-center justify-center h-12 rounded-xl font-semibold bg-gray-100 text-gray-900">Declaração CRF (link)</a>
+              <a href="#contato" class="btn-primary w-full inline-flex items-center justify-center h-12 rounded-xl font-semibold">Solicitar comprovação</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -409,7 +448,7 @@
         <button type="submit" class="btn-primary w-full py-3 rounded-lg font-semibold">Enviar</button>
         <p id="form-feedback" class="text-center text-sm mt-3 hidden"></p>
       </form>
-      <p class="text-center mt-4">Ou fale comigo pelo <a href="https://wa.me/5599999999999" class="text-pink-700 underline">WhatsApp</a></p>
+      <p class="text-center mt-4">Ou fale comigo pelo <a data-whatsapp href="#" class="text-pink-700 underline">WhatsApp (71) 98785-4355</a></p>
     </div>
   </section>
 
@@ -442,9 +481,9 @@
     <div class="max-w-7xl mx-auto px-4">
       <h2 class="text-3xl font-bold text-center mb-8">Entre em Contato</h2>
       <div class="flex justify-center space-x-8 mb-8">
-        <a href="https://wa.me/5599999999999" class="text-white hover:text-pink-300" aria-label="WhatsApp"><i class="fab fa-whatsapp text-2xl"></i></a>
-        <a href="mailto:bianca@exemplo.com" class="text-white hover:text-pink-300" aria-label="Email"><i class="fas fa-envelope text-2xl"></i></a>
-        <a href="tel:+5599999999999" class="text-white hover:text-pink-300" aria-label="Telefone"><i class="fas fa-phone text-2xl"></i></a>
+        <a data-whatsapp href="#" class="text-white hover:text-pink-300" aria-label="WhatsApp"><i class="fab fa-whatsapp text-2xl"></i></a>
+        <a href="mailto:bia_docilio12@hotmail.com" class="text-white hover:text-pink-300" aria-label="Email"><i class="fas fa-envelope text-2xl"></i></a>
+        <a href="tel:+5571987854355" class="text-white hover:text-pink-300" aria-label="Telefone"><i class="fas fa-phone text-2xl"></i></a>
         <a href="https://www.instagram.com/" target="_blank" rel="noopener" class="text-white hover:text-pink-300" aria-label="Instagram"><i class="fab fa-instagram text-2xl"></i></a>
       </div>
       <div class="text-center space-y-1">
@@ -467,6 +506,13 @@
     const overlay=drawer.querySelector('.overlay');
     const panel=document.getElementById('drawer-panel');
     const closeDrawerBtn=document.getElementById('closeDrawer');
+    const WAPP_NUMBER='5571987854355';
+    const WAPP_MESSAGE='Olá, Bianca! Quero agendar uma consultoria farmacêutica.\n\nNome:\nTipo: presencial/online/domiciliar\nHorário preferido:\nResumo da necessidade:\n\nMeu e-mail: bia_docilio12@hotmail.com';
+    document.querySelectorAll('a[data-whatsapp]').forEach(a=>{
+      a.href=`https://wa.me/${WAPP_NUMBER}?text=${encodeURIComponent(WAPP_MESSAGE)}`;
+      a.target='_blank';
+      a.rel='noopener';
+    });
 
     function openDrawer(){
       drawer.classList.add('open');
